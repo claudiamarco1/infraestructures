@@ -1,5 +1,13 @@
 # Como llamar la funcion:
-# from Functions import api_etl
+""" 
+from Functions import api_etl
+
+url = "https://randomuser.me/api"
+users = 200
+fixed = "abc"
+data = api_etl(url, results = users,seed = fixed)
+"""
+
 import requests
 
 def api_etl(url: str, results: int, seed: str):
