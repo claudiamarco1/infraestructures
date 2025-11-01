@@ -1,0 +1,15 @@
+# Installation command
+# pip3 install -r requirements.txt
+
+# Example Freezed versions
+# requests==2.32.3
+# matplotlib==3.8.2
+
+# Packages needed for data visualization
+matplotlib
+
+# HTTP requests to APIs
+requests
+statistics
+csv
+json
