@@ -4,7 +4,9 @@ from Functions import api_etl
 
 url = "https://randomuser.me/api"
 users = 200
-fixed = "abc"
+fixed = "1234"
+
+# Data devuelve un JSON file de todos los usuarios
 data = api_etl(url, results = users,seed = fixed)
 """
 
