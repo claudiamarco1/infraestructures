@@ -1,3 +1,17 @@
+import subprocess, sys, os
+
+def install_requirements():
+    """
+    Función para instalar todos los packages de Python necesarios previo a lanzar el proceso de la ETL. 
+    La lista se encuentra en el archivo requirements.txt
+    """
+    if os.path.exists("requirements.txt"):
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+        print("Requirements.txt file lista de packages instalados!")
+    else:
+        print("No se encuentra el archivo Requirements.txt. Instalación fallida!")
+install_requirements()
+
 from Functions import api_etl, transform, make_plots
 
 def run_etl():
