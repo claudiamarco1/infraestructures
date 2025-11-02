@@ -11,5 +11,4 @@ matplotlib
 # HTTP requests to APIs
 requests
 statistics
-csv
-json
+pandas
