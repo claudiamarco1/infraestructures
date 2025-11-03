@@ -1,14 +1,18 @@
-# Installation command
-# pip3 install -r requirements.txt
+# Comando de instalación:
+# pip install -r requirements.txt
 
-# Example Freezed versions
-# requests==2.32.3
-# matplotlib==3.8.2
-
-# Packages needed for data visualization
-matplotlib
-
-# HTTP requests to APIs
+# Para conexión con APIs (HTTP requests)
 requests
-statistics
+
+# Para análisis de datos (DataFrames, cálculos)
 pandas
+
+# Para visualización de datos (Gráficos y Mapas)
+matplotlib
+folium
+
+# Para automatización del navegador
+selenium
+
+# Utilidades (códigos de país ISO)
+pycountry
