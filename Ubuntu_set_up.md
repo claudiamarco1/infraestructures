@@ -69,4 +69,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 python3 filename.py
 <img width="866" height="657" alt="image" src="https://github.com/user-attachments/assets/91250a52-4d65-454c-8026-84bbc558d4d4" />
+<img width="468" height="53" alt="image" src="https://github.com/user-attachments/assets/6209e567-e957-4362-9189-160ed6a8e038" />
+<img width="468" height="93" alt="image" src="https://github.com/user-attachments/assets/865103b1-ec35-40d7-8a80-9b0da8e49a08" />
 
