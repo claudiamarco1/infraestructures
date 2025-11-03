@@ -54,9 +54,9 @@ python3 --version
 suda apt install python3-pip
 sudo apt install python3-venv -y
 
-git clone https://github.com/your-username/your-repository.git
-git clone https://github.com/claudiamarco1/infraestructures.git
-ls
+git clone https://github.com/your-username/your-repository.git </br>
+git clone https://github.com/claudiamarco1/infraestructures.git </br>
+ls</br>
 cd your-repository
 
 ### Create Virtual environment in your Project folder
