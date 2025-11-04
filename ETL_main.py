@@ -2,7 +2,7 @@ import subprocess, sys, os
 
 # Importar las funciones
 try:
-    from functions import api_extract, transform_data, load_and_visualize
+    from Functions import api_extract, transform_data, load_and_visualize
 except ImportError:
     print("Error al importar las funciones. Asegúrate de que 'Functions.py' está en el mismo directorio.")
     sys.exit(1)
