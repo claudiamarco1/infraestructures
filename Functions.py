@@ -3,7 +3,7 @@
 from Functions import api_etl
 
 url = "https://randomuser.me/api"
-users = 200
+users = 1000
 fixed = "1234"
 
 # Data devuelve un JSON file de todos los usuarios
@@ -31,7 +31,7 @@ def api_etl(url: str, results: int, seed: str):
     params: Dict[str, str | int] = {
         "results": results, # El resultado de Nº users que queremos extraer
         "seed": seed,       # Seeds permite generar la misma seleccion de usuarios.
-        "format": "json"    # JSON,CSV,XML,YAML output
+        "format": "json"
     }
 
     try:
@@ -59,9 +59,7 @@ def transform(data):
         "name.last": "Apellido",
         "nat": "Nacionalidad",
         "dob.age": "Edad",
-        "location.country": "Pais",
-        "location.coordinates.latitude": "latitude",
-        "location.coordinates.longitude": "longitude"
+        "location.country": "Pais"
     }
     
     # Seleccionar solo columnas existentes
@@ -75,10 +73,6 @@ def transform(data):
     df_clean["Genero"] = df_clean["Genero"].astype("category")
     df_clean["Nacionalidad"] = df_clean["Nacionalidad"].astype("category")
     df_clean["Pais"] = df_clean["Pais"].astype("category")
-
-    # Convertir lat/lon a numérico (si existen)  
-    df_clean["latitude"] = pd.to_numeric(df_clean["latitude"], errors="coerce")
-    df_clean["longitude"] = pd.to_numeric(df_clean["longitude"], errors="coerce")
     
     return df_clean
 
@@ -105,31 +99,47 @@ def make_plots(df_clean):
 
     print(f"Edad media total: {average_age:.2f}")
     print(f"Conteo por género:\n{gender_counts}")
-    # Gráfico 1: Distribución de Género (Barra)
-    plt.figure(figsize=(8, 5))
-    gender_counts.plot(kind='bar', color=['pink', 'skyblue'])
-    plt.title('Distribución por Género (500 Usuarios)')
-    plt.xlabel('Género')
-    plt.ylabel('Cantidad')
-    plt.xticks(rotation=0)
-    plot_path_gender = os.path.join(output_dir, 'distribucion_genero.png')
-    plt.savefig(plot_path_gender)
-    plt.close()
-    print(f"Gráfico de género guardado en: {plot_path_gender}")
-
-
-    # Gráfico 2: Distribución de Edades (Histograma)
+    
+    # Gráfico 1: Distribución de Edades (Histograma)
     plt.figure(figsize=(10, 6))
     df_clean['Edad'].plot(kind='hist', bins=20, edgecolor='black', color='lightgreen')
-    plt.title('Distribución de Edades (500 Usuarios)')
+    plt.title(f'Distribución de Edades ({len(df_clean)} Usuarios)')
     plt.xlabel('Edad')
     plt.ylabel('Frecuencia')
-    # Añadimos una línea vertical para la edad media
     plt.axvline(average_age, color='red', linestyle='dashed', linewidth=2, label=f'Edad Media: {average_age:.2f}')
     plt.legend()
     plot_path_age = os.path.join(output_dir, 'distribucion_edad.png')
     plt.savefig(plot_path_age)
     plt.close()
-    print(f"Gráfico de edad guardado en: {plot_path_age}") 
+    print(f"Gráfico de edad guardado en: {plot_path_age}")
+
+
+    # Gráfico 2: Barras Nacionalidad
+    country_counts = df_clean['Pais'].value_counts()
+    plt.figure(figsize=(12, 6))
+    country_counts.head(20).plot(kind='bar', color='lightcoral') # Mostrar solo top 20
+    plt.title('Distribución de Usuarios por Nacionalidad (Top 20)')
+    plt.xlabel('País')
+    plt.ylabel('Cantidad de Usuarios')
+    plt.xticks(rotation=75)
+    plt.tight_layout()
+    plot_path_country = os.path.join(output_dir, 'barras_nacionalidad.png')
+    plt.savefig(plot_path_country)
+    plt.close()
+    print(f"Gráfico de barras nacionalidad guardado en: {plot_path_country}")
+
+        # Grafico 3: Barras de usuarios por rango de edad
+    rango_counts = df_clean['RangoEdad'].value_counts().sort_index()
+    plt.figure(figsize=(8, 5))
+    rango_counts.plot(kind='bar', color='orange', edgecolor='black')
+    plt.title('Número de Usuarios por Rango de Edad')
+    plt.xlabel('Rango de Edad')
+    plt.ylabel('Número de Usuarios')
+    plt.xticks(rotation=0)
+    plt.tight_layout()
+    plot_path_rango = os.path.join(output_dir, 'barras_rango_edad.png')
+    plt.savefig(plot_path_rango)
+    plt.close()
+    print(f"Gráfico de barras de rango de edades guardado en: {plot_path_rango}")
     
     return
