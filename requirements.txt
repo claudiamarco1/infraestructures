@@ -9,10 +9,3 @@ pandas
 
 # Para visualización de datos (Gráficos y Mapas)
 matplotlib
-folium
-
-# Para automatización del navegador
-selenium
-
-# Utilidades (códigos de país ISO)
-pycountry
