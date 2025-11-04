@@ -1,24 +1,23 @@
 import subprocess, sys, os
 
-def install_requirements():
-    """
-    Función para instalar todos los packages de Python necesarios previo a lanzar el proceso de la ETL. 
-    La lista se encuentra en el archivo requirements.txt
-    """
-    if os.path.exists("requirements.txt"):
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
-        print("Requirements.txt file lista de packages instalados!")
-    else:
-        print("No se encuentra el archivo Requirements.txt. Instalación fallida!")
-install_requirements()
-
-from Functions import api_etl, transform, make_plots
+# Importar las funciones
+try:
+    from functions import api_extract, transform_data, load_and_visualize
+except ImportError:
+    print("Error al importar las funciones. Asegúrate de que 'Functions.py' está en el mismo directorio.")
+    sys.exit(1)
+except ModuleNotFoundError:
+    print("\nError: Módulo no encontrado.")
+    print("Asegúrate de que 'Functions.py' está en el mismo directorio.")
+    print("Y de que has instalado las dependencias manualmente ejecutando:")
+    print("pip install -r requirements.txt\n")
+    sys.exit(1)
 
 def run_etl():
     # API Link
     url = "https://randomuser.me/api"
     # Numero de Usuarios a Extraer
-    users = 200
+    users = 1000
     # Valor para generar el mismo set de usuarios.
     fixed = "1234"
 
@@ -31,7 +30,7 @@ def run_etl():
     # Función para generar las estadísticas y plots
     make_plots(df_clean)
     
-    print("✅ ETL Completada con Exito!")
+    print("ETL Completada con Exito!")
     
 # --- Ejecutar el script ---
 if __name__ == "__main__":
